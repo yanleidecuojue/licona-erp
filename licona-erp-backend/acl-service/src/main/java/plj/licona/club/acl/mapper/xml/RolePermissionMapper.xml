@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plj.licona.club.acl.mapper.RolePermissionMapper">
+    <insert id="linkRolePermission" parameterType="plj.licona.club.acl.entity.RolePermission">
+        insert into role_permission(id, role_id, permission_id) values (#{id}, #{roleId}, #{permissionId})
+    </insert>
+</mapper>

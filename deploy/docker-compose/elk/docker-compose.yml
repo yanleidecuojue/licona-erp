@@ -1,0 +1,39 @@
+version: '2.2'
+services:
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.13.1
+    container_name: elk-single-elasticsearch
+    environment:
+      - discovery.type=single-node
+      - "ES_JAVA_OPTS=-Xms1G -Xmx1G"
+    volumes:
+      - es-data:/usr/share/elasticsearch/data
+    hostname: elasticsearch
+    restart: always
+    ports:
+      - 9200:9200
+      - 9300:9300
+  kibana:
+    image: docker.elastic.co/kibana/kibana:7.13.1
+    container_name: elk-single-kibana
+    environment:
+      - elasticsearch.hosts=http://106.52.62.237:9200
+    hostname: kibana
+    depends_on:
+      - elasticsearch
+    restart: always
+    ports:
+      - "5601:5601"
+  logstash:
+    image: docker.elastic.co/logstash/logstash:7.13.1
+    container_name: elk-single-logstash
+    hostname: logstash
+    restart: always
+    depends_on:
+      - elasticsearch
+    ports:
+      - 9600:9600
+      - 5044:5044
+volumes:
+  es-data:
+    driver: local

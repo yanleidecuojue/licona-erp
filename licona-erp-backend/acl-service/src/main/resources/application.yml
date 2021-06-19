@@ -1,0 +1,31 @@
+server:
+  port: 9501
+spring:
+  profiles:
+    active: dev
+  application:
+    name: acl-service
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/licona_erp?serverTimezone=GMT%2B8
+    username: root
+    password: licona-erp-mysql-password
+  redis:
+    port: 6379
+    host: localhost
+    password: licona-erp-redis-password
+
+mybatis-plus:
+  mapper-locations: classpath:plj/licona/club/acl/mapper/xml/*.xml
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

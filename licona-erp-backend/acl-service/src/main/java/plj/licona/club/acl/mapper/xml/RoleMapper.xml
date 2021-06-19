@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plj.licona.club.acl.mapper.RoleMapper">
+    <select id="findRolesByUserId" resultType="plj.licona.club.acl.entity.Role">
+        select role.*
+        from role
+                 inner join user_role ur on role.id = ur.role_id
+                 inner join user u on ur.user_id = u.id
+        where u.id = #{userId};
+    </select>
+
+    <insert id="addRole" parameterType="plj.licona.club.acl.entity.Role">
+        insert into role(id, role_name, remark)
+        values (#{id}, #{roleName}, #{remark})
+    </insert>
+    <update id="updateRole" parameterType="plj.licona.club.acl.entity.Role">
+        update role
+        set role_name=#{roleName},
+            remark=#{remark}
+        where id = #{id}
+    </update>
+</mapper>

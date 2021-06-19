@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="plj.licona.club.user.mapper.UserMapper">
+    <select id="selectUserById" resultType="plj.licona.club.user.domain.UserDTO">
+        select u.id, username as name, nick_name, avatar, group_concat(r.role_name separator ',') roles
+        from user as u
+                 inner join user_role as ur on u.id = ur.user_id
+                 inner join role r on ur.role_id = r.id
+        where u.id = #{id}
+        group by u.id;
+    </select>
+    <insert id="insertUser" parameterType="plj.licona.club.user.entity.User">
+        insert into user(id, username, password, nick_name, avatar, email, phone_number)
+        values (#{id}, #{username}, #{password}, #{nickName}, #{avatar}, #{email}, #{phoneNumber})
+    </insert>
+</mapper>
